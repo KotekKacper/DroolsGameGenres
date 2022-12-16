@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Enumeration;
 
-class GUI{
+public class GUI{
 	
 	public static String answer;
 	

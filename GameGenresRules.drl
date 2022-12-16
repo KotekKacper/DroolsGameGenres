@@ -1,14 +1,54 @@
 package com.sample
+
+import java.util.ArrayList
+import com.sample.GUI
  
-declare GUI-state
-	tresc_pytania : String
-	opcje_odpowiedzi : String[]
-	opcja_domyslna : String
-	odpowiedz : String
+declare Question
+	question : String
+	options : String[] //ArrayList - maybe useless field
+	answer : String
 end
 
+//        	function void askQuestion(Question q){ - don't know why it doesn't work and how to make function
+//        		GUI gui = new GUI();
+//        		gui.window("Which genre interest you?", options);
+//        	}
 
-rule "Choose path"
+rule "Which genre interest you?"
 	when
 	then
+		String[] options = {"Medieval Fantasy", "Far Future",
+   				 "Mecha", "Generes related to near present",
+   				 "Westerns", "Supers", "Other Alternate History",
+   				 "Genre Shouldn't matter"};
+	 
+	   	GUI gui = new GUI();
+	   	gui.window("Which genre interest you?", options);
+	   	
+//       		ArrayList<String> opt = new ArrayList<String>(); //another option for storing answer opions
+//    			opt.add("Medieval Fantasy");
+//    			opt.add("Far Future");
+//       		opt.add("Mecha");
+//       		opt.add("Generes related to near present");
+//       		opt.add("Westerns");
+//       		opt.add("Supers");
+//       		opt.add("Other Alternate History");
+//       		opt.add("Genre Shouldn't matter");
+//       		System.out.println( options );
+
+	   	//TODO: Receive answer from gui and assign it to q
+   		//insert(q);
+end
+
+rule "Which subgenre?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Medieval Fantasy")
+	then
+		String[] options = {"Oriental", "Humor",
+   				 "High Fantasy/General", "High magic", "Low Fantasy"};
+	 
+	   	GUI gui = new GUI();
+	   	gui.window("Which subgenre?", options);
+	   	
+   		//insert(q);
 end

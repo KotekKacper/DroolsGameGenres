@@ -12,14 +12,12 @@ public class GameGenres {
 
     public static final void main(String[] args) {
         try {
-        	String [] answers = {"Medieval Fantasy", "Far Future",
-   				 "Mecha", "Generes related to near present",
-   				 "Westerns", "Supers", "Other Alternate History",
-   				 "Genre Shouldn't matter"};
-        	
-    		GUI.window("Which genre interests you?",
-    				answers,
-    				"Medieval Fantasy");
+//        	String [] answers = {"Medieval Fantasy", "Far Future",
+//   				 "Mecha", "Generes related to near present",
+//   				 "Westerns", "Supers", "Other Alternate History",
+//   				 "Genre Shouldn't matter"};
+//        	
+//    		GUI.window("Which genre interests you?", answers);
         	
         	
             // load up the knowledge base
