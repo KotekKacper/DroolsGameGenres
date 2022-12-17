@@ -10,9 +10,9 @@ public class GUI{
 	
 	public static String answer;
 	
-	public String getAnswer() {
-		return answer;
-	}
+	//public String getAnswer() {
+		//return answer;
+	//}
 	
 	private static String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
@@ -26,8 +26,8 @@ public class GUI{
         return null;
     }
 	
-      public static void window(String tresc_pytania, String[] odpowiedzi,
-    		  				    String opcja_domyslna){
+      public static String window(String tresc_pytania, String[] odpowiedzi){
+    	  answer = null;
 		  JFrame frame = new JFrame(tresc_pytania);
 		  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		  frame.setSize(300,500);
@@ -57,8 +57,11 @@ public class GUI{
 		  okButton.addMouseListener(new MouseListener() {
 	            @Override
 	            public void mouseClicked(MouseEvent mouseEvent) {
-	                answer = getSelectedButtonText(group);
-	                frame.dispose();
+	            	answer = getSelectedButtonText(group);
+	                //System.out.println( answer );
+	            	if(answer != null) {
+	            		frame.dispose();
+	            	}
 	            }
 
 	            @Override
@@ -69,7 +72,13 @@ public class GUI{
 	            public void mouseEntered(MouseEvent mouseEvent) {}
 	            @Override
 	            public void mouseExited(MouseEvent mouseEvent) {}
-	        });
+	      });
+		  //int i = 0;
+		  while(answer == null) { //wait until user chooses the answer and clicks ok button
+			//i++;
+			System.out.println( answer );
+		  }
+		  return answer;
      }
       
 }
