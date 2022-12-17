@@ -54,12 +54,78 @@ rule "With meta-plots and CCG element?"
 	   	insert(nextq);
 end
 
-rule ""
+rule "FATE based d20 based or neither?"
 	when
-		$q : Question(question == "", answer == "")
+		$q : Question(question == "Which genre interests you?", answer == "Other Alternate History")
 	then
-	 	showAnswer("Cyberpunk2020");
+		String[] options = {"FATE", "d20", "Neither"};
+
+	   	Question nextq = askQuestion("FATE based d20 based or neither?", options);
+	   	insert(nextq);
 end
+
+rule "D20 Past"
+	when
+		$q : Question(question == "FATE based d20 based or neither?", answer == "d20")
+	then
+	 	showAnswer("D20 Past");
+end
+
+rule "Pick a subgenre"
+	when
+		$q : Question(question == "FATE based d20 based or neither?", answer == "Neither")
+	then
+		String[] options = {"Pulp", "Japanese/Samurai", "Mobsters 1930s"};
+
+	   	Question nextq = askQuestion("Pick a subgenre", options);
+	   	insert(nextq);
+end
+
+rule "Pulp"
+	when
+		$q : Question(question == "Pick a subgenre", answer == "Pulp")
+	then
+	 	showAnswer("Pulp");
+end
+
+rule "Bushido"
+	when
+		$q : Question(question == "Pick a subgenre", answer == "Japanese/Samurai")
+	then
+	 	showAnswer("Bushido");
+end
+
+rule "Gangbusters"
+	when
+		$q : Question(question == "Pick a subgenre", answer == "Mobsters 1930s")
+	then
+	 	showAnswer("Gangbusters");
+end
+
+rule "Supernatural or pulp?"
+	when
+		$q : Question(question == "FATE based d20 based or neither?", answer == "FATE")
+	then
+		String[] options = {"Pulp", "Supernatural"};
+
+	   	Question nextq = askQuestion("Supernatural or pulp?", options);
+	   	insert(nextq);
+end
+
+rule "Spirit of the Century"
+	when
+		$q : Question(question == "Supernatural or pulp?", answer == "Pulp")
+	then
+	 	showAnswer("Spirit of the Century");
+end
+
+rule "Dresden Files"
+	when
+		$q : Question(question == "Supernatural or pulp?", answer == "Supernatural")
+	then
+	 	showAnswer("Dresden Files");
+end
+
 
 
 
