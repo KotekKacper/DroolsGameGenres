@@ -10,10 +10,6 @@ public class GUI{
 	
 	public static String answer;
 	
-	//public String getAnswer() {
-		//return answer;
-	//}
-	
 	private static String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -73,10 +69,8 @@ public class GUI{
 	            @Override
 	            public void mouseExited(MouseEvent mouseEvent) {}
 	      });
-		  //int i = 0;
 		  while(answer == null) { //wait until user chooses the answer and clicks ok button
-			//i++;
-			System.out.println( answer );
+			System.out.print("");
 		  }
 		  return answer;
      }

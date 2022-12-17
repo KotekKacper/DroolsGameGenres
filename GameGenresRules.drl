@@ -7,10 +7,14 @@ declare Question
 	answer : String
 end
 
-//        	function void askQuestion(Question q){ - don't know why it doesn't work and how to make function
-//        		GUI gui = new GUI();
-//        		gui.window("Which genre interest you?", options);
-//        	}
+function Question askQuestion(String q, String[] options) {
+    GUI gui = new GUI();
+    String answer = gui.window(q, options);
+    System.out.println( answer );
+    Question quest = new Question(q, answer);
+   	return quest;
+}
+
 
 rule "Which genre interest you?"
 	when
@@ -19,12 +23,9 @@ rule "Which genre interest you?"
    				 "Mecha", "Generes related to near present",
    				 "Westerns", "Supers", "Other Alternate History",
    				 "Genre Shouldn't matter"};
-	 	// Receive answer from gui and assign it to q
-	   	GUI gui = new GUI();
-	   	String answer = gui.window("Which genre interest you?", options); 
-	   	System.out.println( answer );
-	   	Question q = new Question("Which genre interest you?", answer);
-   		insert(q);
+	 	
+	   	Question nextq = askQuestion("Which genre interest you?", options);
+	   	insert(nextq);
 end
 
 rule "Which subgenre?"
@@ -33,11 +34,8 @@ rule "Which subgenre?"
 	then
 		String[] options = {"Oriental", "Humor", "High Fantasy/General", "High magic", "Low Fantasy"};
 	 
-	   	GUI gui = new GUI();
-	   	String answer = gui.window("Which subgenre?", options);
-	   	System.out.println( answer );
-	   	Question q = new Question("Which subgenre?", answer);
-   		insert(q);
+	   	Question nextq = askQuestion("Which subgenre?", options);
+	   	insert(nextq);
 end
 
 rule "With meta-plots and CCG element?"
@@ -46,11 +44,8 @@ rule "With meta-plots and CCG element?"
 	then
 		String[] options = {"Yes", "No"};
 	 
-	   	GUI gui = new GUI();
-	   	String answer = gui.window("With meta-plots and CCG element?", options);
-	   	System.out.println( answer );
-	   	Question q = new Question("With meta-plots and CCG element?", answer);
-   		insert(q);
+	   	Question nextq = askQuestion("With meta-plots and CCG element?", options);
+	   	insert(nextq);
 end
 
 
