@@ -15,6 +15,12 @@ function Question askQuestion(String q, String[] options) {
    	return quest;
 }
 
+function void showAnswer(String ans) {
+	GUI gui = new GUI();
+    String answer = gui.window(ans, null);
+    System.out.println( answer );
+}
+
 
 rule "Which genre interest you?"
 	when
@@ -43,9 +49,16 @@ rule "With meta-plots and CCG element?"
 		$q : Question(question == "Which subgenre?", answer == "Oriental")
 	then
 		String[] options = {"Yes", "No"};
-	 
+
 	   	Question nextq = askQuestion("With meta-plots and CCG element?", options);
 	   	insert(nextq);
+end
+
+rule ""
+	when
+		$q : Question(question == "", answer == "")
+	then
+	 	showAnswer("Cyberpunk2020");
 end
 
 

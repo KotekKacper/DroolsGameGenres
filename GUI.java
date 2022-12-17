@@ -32,19 +32,28 @@ public class GUI{
 		  JLabel pytanie = new JLabel(tresc_pytania);
 		  frame.getContentPane().add(pytanie);
 		  
-		  int rows_left = 9;
 		  ButtonGroup group = new ButtonGroup();
-		  for (String odp : odpowiedzi) {
-			  JRadioButton rButton = new JRadioButton();
-			  rButton.setText(odp);
-			  frame.getContentPane().add(rButton);
-			  group.add(rButton);
+		  int rows_left = 9;
+		  if (odpowiedzi == null) {
+			  JLabel fin = new JLabel("is a right game genre for you");
+			  frame.getContentPane().add(fin);
+			  answer = tresc_pytania;
 			  rows_left--;
+		  }
+		  else {
+			  for (String odp : odpowiedzi) {
+				  JRadioButton rButton = new JRadioButton();
+				  rButton.setText(odp);
+				  frame.getContentPane().add(rButton);
+				  group.add(rButton);
+				  rows_left--;
+			  }
 		  }
 		  for (;rows_left>1;rows_left--) {
 			  JLabel space = new JLabel("");
 			  frame.getContentPane().add(space);
 		  }
+		  
 		  
 		  JButton okButton = new JButton("OK");
 		  frame.getContentPane().add(okButton);
@@ -53,7 +62,10 @@ public class GUI{
 		  okButton.addMouseListener(new MouseListener() {
 	            @Override
 	            public void mouseClicked(MouseEvent mouseEvent) {
-	            	answer = getSelectedButtonText(group);
+	            	if (odpowiedzi != null) {
+	            		answer = getSelectedButtonText(group);
+	            	}
+	            	
 	                //System.out.println( answer );
 	            	if(answer != null) {
 	            		frame.dispose();
