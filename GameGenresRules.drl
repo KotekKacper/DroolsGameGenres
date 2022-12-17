@@ -126,7 +126,150 @@ rule "Dresden Files"
 	 	showAnswer("Dresden Files");
 end
 
+rule "Genre really shouldn't matter?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Genre Shouldn't matter")
+	then
+		String[] options = {"No, not really", "Yes"};
 
+	   	Question nextq = askQuestion("Really?", options);
+	   	insert(nextq);
+end
 
+rule "Which genre interest you? (again)"
+	when
+		$q : Question(question == "Genre really shouldn't matter?", answer == "No, not really")
+	then
+		String[] options = {"Medieval Fantasy", "Far Future",
+   				 "Mecha", "Generes related to near present",
+   				 "Westerns", "Supers", "Other Alternate History",
+   				 "Genre Shouldn't matter"};
+	 	
+	   	Question nextq = askQuestion("Which genre interest you?", options);
+	   	insert(nextq);
+end
 
+rule "What is du/dx = cu+xy?"
+	when
+		$q : Question(question == "Genre really shouldn't matter?", answer == "Yes")
+	then
+		String[] options = {"It should be +x, not +xy", "A differential equation", "Huh?"};
 
+	   	Question nextq = askQuestion("What is du/dx = cu+xy?", options);
+	   	insert(nextq);
+end
+
+rule "GURPS"
+	when
+		$q : Question(question == "What is du/dx = cu+xy?", answer == "It should be +x, not +xy")
+	then
+	 	showAnswer("GURPS");
+end
+
+rule "HERO"
+	when
+		$q : Question(question == "What is du/dx = cu+xy?", answer == "A differential equation")
+	then
+	 	showAnswer("HERO");
+end
+
+rule "Want an 'open' game?"
+	when
+		$q : Question(question == "What is du/dx = cu+xy?", answer == "Huh?")
+	then
+		String[] options = {"Doesn't matter", "No", "Yes"};
+
+	   	Question nextq = askQuestion("Want an 'open' game?", options);
+	   	insert(nextq);
+end
+
+rule "Open game really doesn't matter?"
+	when
+		$q : Question(question == "Want an 'open' game?", answer == "Doesn't matter")
+	then
+		String[] options = {"Sorta", "A fascist could make It for all I care"};
+
+	   	Question nextq = askQuestion("Really?", options);
+	   	insert(nextq);
+end
+
+rule "TORG"
+	when
+		$q : Question(question == "Open game really doesn't matter?", answer == "Sorta")
+	then
+	 	showAnswer("TORG");
+end
+
+rule "RIFTS / Savage Worlds"
+	when
+		$q : Question(question == "Open game really doesn't matter?",
+					  answer == "A fascist could make It for all I care")
+	then
+	 	showAnswer("RIFTS");
+		showAnswer("Savage Worlds");
+end
+
+rule "Savage Worlds"
+	when
+		$q : Question(question == "Want an 'open' game?", answer == "No")
+	then
+		showAnswer("Savage Worlds");
+end
+
+rule "Want one that is 'cinematic' or has a bit of humor?"
+	when
+		$q : Question(question == "Want an 'open' game?", answer == "Yes")
+	then
+		String[] options = {"Cinematic", "Humor", "None"};
+
+	   	Question nextq = askQuestion("Want one that is 'cinematic' or has a bit of humor?", options);
+	   	insert(nextq);
+end
+
+rule "Open d6"
+	when
+		$q : Question(question == "Want one that is 'cinematic' or has a bit of humor?", answer == "Cinematic")
+	then
+	 	showAnswer("Open d6");
+end
+
+rule "Risus"
+	when
+		$q : Question(question == "Want one that is 'cinematic' or has a bit of humor?", answer == "Humor")
+	then
+	 	showAnswer("Risus");
+end
+
+rule "Have a niche genre in mind?"
+	when
+		$q : Question(question == "Want one that is 'cinematic' or has a bit of humor?", answer == "None")
+	then
+		String[] options = {"No", "Super Natural Or pulp", "Super heroes"};
+
+	   	Question nextq = askQuestion("Have a niche genre in mind?", options);
+	   	insert(nextq);
+end
+
+rule "FUDGE"
+	when
+		$q : Question(question == "Have a niche genre in mind?", answer == "No")
+	then
+	 	showAnswer("FUDGE");
+end
+
+rule "ICONS (again)"
+	when
+		$q : Question(question == "Have a niche genre in mind?", answer == "Super heroes")
+	then
+		showAnswer("ICONS");
+end
+
+rule "Supernatural or pulp? (again)"
+	when
+		$q : Question(question == "Have a niche genre in mind?", answer == "Super Natural Or pulp")
+	then
+		String[] options = {"Pulp", "Supernatural"};
+
+	   	Question nextq = askQuestion("Supernatural or pulp?", options);
+	   	insert(nextq);
+end
