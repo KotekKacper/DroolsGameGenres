@@ -412,7 +412,7 @@ end
 
 rule "FATE based d20 based or neither?"
 	when
-		$q : Question(question == "Which genre interests you?", answer == "Other Alternate History")
+		$q : Question(question == "Which genre interest you?", answer == "Other Alternate History")
 	then
 		String[] options = {"FATE", "d20", "Neither"};
 
@@ -494,12 +494,9 @@ end
 
 rule "Which genre interest you? (again)"
 	when
-		$q : Question(question == "Genre really shouldn't matter?", answer == "No, not really")
+		$q : Question(question == "Really?", answer == "No, not really")
 	then
-		String[] options = {"Medieval Fantasy", "Far Future",
-   				 "Mecha", "Generes related to near present",
-   				 "Westerns", "Supers", "Other Alternate History",
-   				 "Genre Shouldn't matter"};
+		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter"};
 	 	
 	   	Question nextq = askQuestion("Which genre interest you?", options);
 	   	insert(nextq);
@@ -507,7 +504,7 @@ end
 
 rule "What is du/dx = cu+xy?"
 	when
-		$q : Question(question == "Genre really shouldn't matter?", answer == "Yes")
+		$q : Question(question == "Really?", answer == "Yes")
 	then
 		String[] options = {"It should be +x, not +xy", "A differential equation", "Huh?"};
 
@@ -558,11 +555,10 @@ end
 
 rule "RIFTS / Savage Worlds"
 	when
-		$q : Question(question == "Open game really doesn't matter?",
+		$q : Question(question == "Really?",
 					  answer == "A fascist could make It for all I care")
 	then
-	 	showAnswer("RIFTS");
-		showAnswer("Savage Worlds");
+	 	showAnswer("RIFTS and Savage Worlds");
 end
 
 rule "Savage Worlds"
