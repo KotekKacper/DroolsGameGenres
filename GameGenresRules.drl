@@ -1,0 +1,830 @@
+package com.sample
+
+import com.sample.GUI
+ 
+declare Question
+	question : String
+	answer : String
+end
+
+function Question askQuestion(String q, String[] options) {
+    GUI gui = new GUI();
+    String answer = gui.window(q, options);
+    System.out.println( answer );
+    Question quest = new Question(q, answer);
+   	return quest;
+}
+
+function void showAnswer(String ans) {
+	GUI gui = new GUI();
+    String answer = gui.window(ans, null);
+    System.out.println( answer );
+}
+
+
+rule "Which genre interest you?"
+	when
+	then
+		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter", "Mecha"};
+	 	
+	   	Question nextq = askQuestion("Which genre interest you?", options);
+	   	insert(nextq);
+end
+
+rule "Which subgenre?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Medieval Fantasy")
+	then
+		String[] options = {"Oriental", "Humor", "High Fantasy/General", "High magic", "Low Fantasy"};
+	 
+	   	Question nextq = askQuestion("Which subgenre?", options);
+	   	insert(nextq);
+end
+
+rule "With meta-plots and CCG element?"
+	when
+		$q : Question(question == "Which subgenre?", answer == "Oriental")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("With meta-plots and CCG element?", options);
+	   	insert(nextq);
+end
+
+rule "With meta-plots and CCG element? Yes"
+	when
+		$q : Question(question == "With meta-plots and CCG element?", answer == "Yes")
+	then
+		showAnswer("Legend of the 5 Rings");
+end
+
+rule "With meta-plots and CCG element? No"
+	when
+		$q : Question(question == "With meta-plots and CCG element?", answer == "No")
+	then
+		showAnswer("Oriental Adventures");
+end
+
+rule "Which subgenre? Hackmaster"
+	when
+		$q : Question(question == "Which subgenre?", answer == "Humor")
+	then
+		showAnswer("Hackmaster");
+end
+
+rule "W/Classes? Point Buy?"
+	when
+		$q : Question(question == "Which subgenre?", answer == "High Fantasy/General")
+	then
+		String[] options = {"No class All point buy", "Point Systems", "Just give me the D&D options", "4 Custom Charts Per Class"};
+
+	   	Question nextq = askQuestion("W/Classes? Point Buy?", options);
+	   	insert(nextq);
+end
+
+rule "W/Classes? Point Buy? No class All point buy"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "No class All point buy")
+	then
+		showAnswer("Fantasy HERO");
+end
+
+rule "W/Classes? Point Buy? 4 Custom Charts Per Class"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "4 Custom Charts Per Class")
+	then
+		showAnswer("Rolemaster");
+end
+
+rule "Mythology based?"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "Point Systems")
+	then
+		String[] options = {"No", "Yes"};
+
+	   	Question nextq = askQuestion("Mythology based?", options);
+	   	insert(nextq);
+end
+
+rule "Mythology based? No"
+	when
+		$q : Question(question == "Mythology based?", answer == "No")
+	then
+		showAnswer("Fantasy Hero");
+end
+
+rule "Mythology based? Yes"
+	when
+		$q : Question(question == "Mythology based?", answer == "Yes")
+	then
+		showAnswer("Exalted");
+end
+
+rule "What do you think of Gyax?"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "Just give me the D&D options")
+	then
+		String[] options = {"He's the Father of RPGs", "He's cool", "Who?"};
+
+	   	Question nextq = askQuestion("What do you think of Gyax?", options);
+	   	insert(nextq);
+end
+
+rule "What do you think of Gyax? Who?"
+	when
+		$q : Question(question == "What do you think of Gyax?", answer == "Who?")
+	then
+		showAnswer("D&D 4E");
+end
+
+rule "Do you like odd mechanics?"
+	when
+		$q : Question(question == "What do you think of Gyax?", answer == "He's cool")
+	then
+		String[] options = {"More subsystems, please", "No"};
+
+	   	Question nextq = askQuestion("Do you like odd mechanics?", options);
+	   	insert(nextq);
+end
+
+rule "Do you like odd mechanics? More subsystems, please"
+	when
+		$q : Question(question == "Do you like odd mechanics?", answer == "More subsystems, please")
+	then
+		showAnswer("D&D 2E");
+end
+
+rule "Want splatbooks galore?"
+	when
+		$q : Question(question == "Do you like odd mechanics?", answer == "No")
+	then
+		String[] options = {"Not really", "Yes", "Make it simple"};
+
+	   	Question nextq = askQuestion("Want splatbooks galore?", options);
+	   	insert(nextq);
+end
+
+rule "Want splatbooks galore? Not really"
+	when
+		$q : Question(question == "Want splatbooks galore?", answer == "Not really")
+	then
+		showAnswer("Castles and Crusades");
+end
+
+rule "How simple?"
+	when
+		$q : Question(question == "Want splatbooks galore?", answer == "Make it simple")
+	then
+		String[] options = {"Very", "Sorta"};
+
+	   	Question nextq = askQuestion("How simple?", options);
+	   	insert(nextq);
+end
+
+rule "How simple? Very"
+	when
+		$q : Question(question == "How simple?", answer == "Very")
+	then
+		showAnswer("True20");
+end
+
+rule "How simple? Sorta"
+	when
+		$q : Question(question == "How simple?", answer == "Sorta")
+	then
+		showAnswer("Fantasy Craft");
+end
+
+rule "Want post 2007 updates?"
+	when
+		$q : Question(question == "Want splatbooks galore?", answer == "Yes")
+	then
+		String[] options = {"No", "Yes"};
+
+	   	Question nextq = askQuestion("Want post 2007 updates?", options);
+	   	insert(nextq);
+end
+
+rule "Want post 2007 updates? No"
+	when
+		$q : Question(question == "Want post 2007 updates?", answer == "No")
+	then
+		showAnswer("D&D 3E/3.5");
+end
+
+rule "Want post 2007 updates? Yes"
+	when
+		$q : Question(question == "Want post 2007 updates?", answer == "Yes")
+	then
+		showAnswer("Pathfinder");
+end
+
+rule "Are you fundamentalist about it?"
+	when
+		$q : Question(question == "What do you think of Gyax?", answer == "He's the Father of RPGs")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Are you fundamentalist about it?", options);
+	   	insert(nextq);
+end
+
+rule "Are you fundamentalist about it? Yes"
+	when
+		$q : Question(question == "Are you fundamentalist about it?", answer == "Yes")
+	then
+		showAnswer("D&D 0E");
+end
+
+rule "Do you like races as clases?"
+	when
+		$q : Question(question == "Are you fundamentalist about it?", answer == "No")
+	then
+		String[] options = {"Yes", "Why the heck can't my dwarf be a cleric?!", "Only two classes are needed", "I'm schizo and want skills"};
+
+	   	Question nextq = askQuestion("Do you like races as clases?", options);
+	   	insert(nextq);
+end
+
+rule "Do you like races as clases? Yes"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "Yes")
+	then
+		showAnswer("BECMI");
+end
+
+rule "Do you like races as clases? Why the heck can't my dwarf be a cleric?!"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "Why the heck can't my dwarf be a cleric?!")
+	then
+		showAnswer("D&D 1E");
+end
+
+rule "Do you like races as clases? I'm schizo and want skills"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "I'm schizo and want skills")
+	then
+		showAnswer("Hackmaster Basaic");
+end
+
+rule "Want skills with that?"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "Only two classes are needed")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Want skills with that?", options);
+	   	insert(nextq);
+end
+
+rule "Want skills with that? Yes"
+	when
+		$q : Question(question == "Want skills with that?", answer == "Yes")
+	then
+		showAnswer("Tunnels and Trolls 7th edition");
+end
+
+rule "Want skills with that? No"
+	when
+		$q : Question(question == "Want skills with that?", answer == "No")
+	then
+		showAnswer("Tunnels and Trolls early editions");
+end
+
+rule "Semi-historical Setting?"
+	when
+		$q : Question(question == "Which subgenre?", answer == "High magic")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Semi-historical Setting?", options);
+	   	insert(nextq);
+end
+
+rule "Semi-historical Setting? Yes"
+	when
+		$q : Question(question == "Semi-historical Setting?", answer == "Yes")
+	then
+		showAnswer("Arc Magica");
+end
+
+rule "Hybridize it moreso with D&D?"
+	when
+		$q : Question(question == "Semi-historical Setting?", answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Hybridize it moreso with D&D?", options);
+	   	insert(nextq);
+end
+
+rule "Hybridize it moreso with D&D? Yes"
+	when
+		$q : Question(question == "Hybridize it moreso with D&D?", answer == "Yes")
+	then
+		showAnswer("EarthDawn");
+end
+
+rule "Hybridize it moreso with D&D? No"
+	when
+		$q : Question(question == "Hybridize it moreso with D&D?", answer == "No")
+	then
+		showAnswer("RuneQuest");
+end
+
+rule "Have wads of cash for minis?"
+	when
+		$q : Question(question == "Which subgenre?", answer == "Low Fantasy")
+	then
+		String[] options = {"Oodles", "Not really"};
+
+	   	Question nextq = askQuestion("Have wads of cash for minis?", options);
+	   	insert(nextq);
+end
+
+rule "Want to finance a store dedicated to 1 game?"
+	when
+		$q : Question(question == "Have wads of cash for minis?", answer == "Oodles")
+	then
+		String[] options = {"Yes", "Not really"};
+
+	   	Question nextq = askQuestion("Want to finance a store dedicated to 1 game?", options);
+	   	insert(nextq);
+end
+
+rule "Want to finance a store dedicated to 1 game? Yes"
+	when
+		$q : Question(question == "Want to finance a store dedicated to 1 game?", answer == "Yes")
+	then
+		showAnswer("Warhammer");
+end
+
+rule "Want to finance a store dedicated to 1 game? Not Really"
+	when
+		$q : Question(question == "Want to finance a store dedicated to 1 game?", answer == "Not really")
+	then
+		String[] options = {"Oodles", "Not really"};
+
+	   	Question nextq = askQuestion("Have wads of cash for minis?", options);
+	   	insert(nextq);
+end
+
+rule "Old or new school?"
+	when
+		$q : Question(question == "Have wads of cash for minis?", answer == "Not really")
+	then
+		String[] options = {"New", "Old"};
+
+	   	Question nextq = askQuestion("Old or new school?", options);
+	   	insert(nextq);
+end
+
+rule "Old or new school? New"
+	when
+		$q : Question(question == "Old or new school?", answer == "New")
+	then
+		showAnswer("Conan (Mongoose)");
+end
+
+rule "Still want a slew of skills?"
+	when
+		$q : Question(question == "Old or new school?", answer == "Old")
+	then
+		String[] options = {"Not really", "& > 15 abilities"};
+
+	   	Question nextq = askQuestion("Still want a slew of skills?", options);
+	   	insert(nextq);
+end
+
+rule "Still want a slew of skills? Not really"
+	when
+		$q : Question(question == "Still want a slew of skills?", answer == "Not really")
+	then
+		showAnswer("Conan (TSR)");
+end
+
+rule "Still want a slew of skills? & > 15 abilities"
+	when
+		$q : Question(question == "Still want a slew of skills?", answer == "& > 15 abilities")
+	then
+		showAnswer("Harnmaster");
+end
+
+rule "FATE based d20 based or neither?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Other Alternate History")
+	then
+		String[] options = {"FATE", "d20", "Neither"};
+
+	   	Question nextq = askQuestion("FATE based d20 based or neither?", options);
+	   	insert(nextq);
+end
+
+rule "D20 Past"
+	when
+		$q : Question(question == "FATE based d20 based or neither?", answer == "d20")
+	then
+	 	showAnswer("D20 Past");
+end
+
+rule "Pick a subgenre"
+	when
+		$q : Question(question == "FATE based d20 based or neither?", answer == "Neither")
+	then
+		String[] options = {"Pulp", "Japanese/Samurai", "Mobsters 1930s"};
+
+	   	Question nextq = askQuestion("Pick a subgenre", options);
+	   	insert(nextq);
+end
+
+rule "Pulp"
+	when
+		$q : Question(question == "Pick a subgenre", answer == "Pulp")
+	then
+	 	showAnswer("Pulp");
+end
+
+rule "Bushido"
+	when
+		$q : Question(question == "Pick a subgenre", answer == "Japanese/Samurai")
+	then
+	 	showAnswer("Bushido");
+end
+
+rule "Gangbusters"
+	when
+		$q : Question(question == "Pick a subgenre", answer == "Mobsters 1930s")
+	then
+	 	showAnswer("Gangbusters");
+end
+
+rule "Supernatural or pulp?"
+	when
+		$q : Question(question == "FATE based d20 based or neither?", answer == "FATE")
+	then
+		String[] options = {"Pulp", "Supernatural"};
+
+	   	Question nextq = askQuestion("Supernatural or pulp?", options);
+	   	insert(nextq);
+end
+
+rule "Spirit of the Century"
+	when
+		$q : Question(question == "Supernatural or pulp?", answer == "Pulp")
+	then
+	 	showAnswer("Spirit of the Century");
+end
+
+rule "Dresden Files"
+	when
+		$q : Question(question == "Supernatural or pulp?", answer == "Supernatural")
+	then
+	 	showAnswer("Dresden Files");
+end
+
+rule "Genre really shouldn't matter?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Genre Shouldn't matter")
+	then
+		String[] options = {"No, not really", "Yes"};
+
+	   	Question nextq = askQuestion("Really?", options);
+	   	insert(nextq);
+end
+
+rule "Which genre interest you? (again)"
+	when
+		$q : Question(question == "Really?", answer == "No, not really")
+	then
+		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter", "Mecha"};
+	 	
+	   	Question nextq = askQuestion("Which genre interest you?", options);
+	   	insert(nextq);
+end
+
+rule "What is du/dx = cu+xy?"
+	when
+		$q : Question(question == "Really?", answer == "Yes")
+	then
+		String[] options = {"It should be +x, not +xy", "A differential equation", "Huh?"};
+
+	   	Question nextq = askQuestion("What is du/dx = cu+xy?", options);
+	   	insert(nextq);
+end
+
+rule "GURPS"
+	when
+		$q : Question(question == "What is du/dx = cu+xy?", answer == "It should be +x, not +xy")
+	then
+	 	showAnswer("GURPS");
+end
+
+rule "HERO"
+	when
+		$q : Question(question == "What is du/dx = cu+xy?", answer == "A differential equation")
+	then
+	 	showAnswer("HERO");
+end
+
+rule "Want an 'open' game?"
+	when
+		$q : Question(question == "What is du/dx = cu+xy?", answer == "Huh?")
+	then
+		String[] options = {"Doesn't matter", "No", "Yes"};
+
+	   	Question nextq = askQuestion("Want an 'open' game?", options);
+	   	insert(nextq);
+end
+
+rule "Open game really doesn't matter?"
+	when
+		$q : Question(question == "Want an 'open' game?", answer == "Doesn't matter")
+	then
+		String[] options = {"Sorta", "A fascist could make It for all I care"};
+
+	   	Question nextq = askQuestion("Really?", options);
+	   	insert(nextq);
+end
+
+rule "TORG"
+	when
+		$q : Question(question == "Open game really doesn't matter?", answer == "Sorta")
+	then
+	 	showAnswer("TORG");
+end
+
+rule "RIFTS / Savage Worlds"
+	when
+		$q : Question(question == "Really?",
+					  answer == "A fascist could make It for all I care")
+	then
+	 	showAnswer("RIFTS and Savage Worlds");
+end
+
+rule "Savage Worlds"
+	when
+		$q : Question(question == "Want an 'open' game?", answer == "No")
+	then
+		showAnswer("Savage Worlds");
+end
+
+rule "Want one that is 'cinematic' or has a bit of humor?"
+	when
+		$q : Question(question == "Want an 'open' game?", answer == "Yes")
+	then
+		String[] options = {"Cinematic", "Humor", "None"};
+
+	   	Question nextq = askQuestion("Want one that is 'cinematic' or has a bit of humor?", options);
+	   	insert(nextq);
+end
+
+rule "Open d6"
+	when
+		$q : Question(question == "Want one that is 'cinematic' or has a bit of humor?", answer == "Cinematic")
+	then
+	 	showAnswer("Open d6");
+end
+
+rule "Risus"
+	when
+		$q : Question(question == "Want one that is 'cinematic' or has a bit of humor?", answer == "Humor")
+	then
+	 	showAnswer("Risus");
+end
+
+rule "Have a niche genre in mind?"
+	when
+		$q : Question(question == "Want one that is 'cinematic' or has a bit of humor?", answer == "None")
+	then
+		String[] options = {"No", "Super Natural Or pulp", "Super heroes"};
+
+	   	Question nextq = askQuestion("Have a niche genre in mind?", options);
+	   	insert(nextq);
+end
+
+rule "FUDGE"
+	when
+		$q : Question(question == "Have a niche genre in mind?", answer == "No")
+	then
+	 	showAnswer("FUDGE");
+end
+
+rule "ICONS (again)"
+	when
+		$q : Question(question == "Have a niche genre in mind?", answer == "Super heroes")
+	then
+		showAnswer("ICONS");
+end
+
+rule "Supernatural or pulp? (again)"
+	when
+		$q : Question(question == "Have a niche genre in mind?", answer == "Super Natural Or pulp")
+	then
+		String[] options = {"Pulp", "Supernatural"};
+
+	   	Question nextq = askQuestion("Supernatural or pulp?", options);
+	   	insert(nextq);
+end
+
+rule "Based on real comics?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Supers")
+	then
+		String[] options = {"DC", "Marvel", "No or other"};
+
+	   	Question nextq = askQuestion("Based on real comics?", options);
+	   	insert(nextq);
+end
+
+rule "Want a diceless system or one with lots of online fansites?"
+	when
+		$q : Question(question == "Based on real comics?", answer == "Marvel")
+	then
+		String[] options = {"Diceless", "Online Fansites"};
+
+	   	Question nextq = askQuestion("Want a diceless system or one with lots of online fansites?", options);
+	   	insert(nextq);
+end
+
+rule "Marvel Universe"
+	when
+		$q : Question(question == "Want a diceless system or one with lots of online fansites?", answer == "Diceless")
+	then
+	 	showAnswer("Marvel Universe");
+end
+
+rule "Marvel SuperHeroes (FASERIP)"
+	when
+		$q : Question(question == "Want a diceless system or one with lots of online fansites?", answer == "Online Fansites")
+	then
+	 	showAnswer("Marvel SuperHeroes (FASERIP)");
+end
+
+rule "D6s, d10s or d20?"
+	when
+		$q : Question(question == "Based on real comics?", answer == "DC")
+	then
+		String[] options = {"D6", "D10", "D20"};
+
+	   	Question nextq = askQuestion("D6s, d10s or d20?", options);
+	   	insert(nextq);
+end
+
+rule "DC Universe"
+	when
+		$q : Question(question == "D6s, d10s or d20?", answer == "D6")
+	then
+	 	showAnswer("DC Universe");
+end
+
+rule "DC Heroes"
+	when
+		$q : Question(question == "D6s, d10s or d20?", answer == "D10")
+	then
+	 	showAnswer("DC Heroes");
+end
+
+rule "DC Adventures"
+	when
+		$q : Question(question == "D6s, d10s or d20?", answer == "D20")
+	then
+	 	showAnswer("DC Adventures");
+end
+
+rule "Do you like d20 (skills, feats, etc.)?"
+	when
+		$q : Question(question == "Based on real comics?", answer == "No or other")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Do you like d20 (skills, feats, etc.)?", options);
+	   	insert(nextq);
+end
+
+rule "Mutants and Mansterminds"
+	when
+		$q : Question(question == "Do you like d20 (skills, feats, etc.)?", answer == "Yes")
+	then
+	 	showAnswer("Mutants and Mansterminds");
+end
+
+rule "Do you like to point buy character gen?"
+	when
+		$q : Question(question == "Do you like d20 (skills, feats, etc.)?", answer == "No")
+	then
+		String[] options = {"Yes", "Yes, with fractions!", "Not Really"};
+
+	   	Question nextq = askQuestion("Do you like to point buy character gen?", options);
+	   	insert(nextq);
+end
+
+rule "GURPS Supers"
+	when
+		$q : Question(question == "Do you like to point buy character gen?", answer == "Yes, with fractions!")
+	then
+	 	showAnswer("GURPS Supers");
+end
+
+rule "Champions"
+	when
+		$q : Question(question == "Do you like to point buy character gen?", answer == "Yes")
+	then
+	 	showAnswer("Champions");
+end
+
+rule "ICONS"
+	when
+		$q : Question(question == "Do you like to point buy character gen?", answer == "Not Really")
+	then
+	 	showAnswer("ICONS");
+end
+
+rule "Focus on Combat?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Westerns")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Focus on Combat?", options);
+	   	insert(nextq);
+end
+
+rule "Boot Hill"
+	when
+		$q : Question(question == "Focus on Combat?", answer == "Yes")
+	then
+	 	showAnswer("Boot Hill");
+end
+
+rule "Mix in some Steampunk?"
+	when
+		$q : Question(question == "Focus on Combat?", answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Mix in some Steampunk?", options);
+	   	insert(nextq);
+end
+
+rule "Deadlands"
+	when
+		$q : Question(question == "Mix in some Steampunk?", answer == "Yes")
+	then
+	 	showAnswer("Deadlands");
+end
+
+rule "Aces and Eights"
+	when
+		$q : Question(question == "Mix in some Steampunk?", answer == "No")
+	then
+	 	showAnswer("Aces and Eights");
+end
+
+rule "How tailored do you want your 'universal' system?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Mecha")
+	then
+		String[] options = {"Just an add-on", "Mangled", "I'm houseruling It all anyway"};
+
+	   	Question nextq = askQuestion("How tailored do you want your 'universal' system?", options);
+	   	insert(nextq);
+end
+
+rule "GURPS Mecha"
+	when
+		$q : Question(question == "How tailored do you want your 'universal' system?", answer == "Just an add-on")
+	then
+	 	showAnswer("GURPS Mecha");
+end
+
+rule "Big Eyes, Small Mouth"
+	when
+		$q : Question(question == "How tailored do you want your 'universal' system?", answer == "Mangled")
+	then
+	 	showAnswer("Big Eyes, Small Mouth");
+end
+
+rule "Still want a 'universal' system?"
+	when
+		$q : Question(question == "How tailored do you want your 'universal' system?", answer == "I'm houseruling It all anyway")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Still want a 'universal' system?", options);
+	   	insert(nextq);
+end
+
+rule "Robotech"
+	when
+		$q : Question(question == "Still want a 'universal' system?", answer == "Yes")
+	then
+	 	showAnswer("Robotech");
+end
+
+rule "Mechwarrior"
+	when
+		$q : Question(question == "Still want a 'universal' system?", answer == "No")
+	then
+	 	showAnswer("Mechwarrior");
+end
+
