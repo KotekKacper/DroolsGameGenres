@@ -25,16 +25,12 @@ function void showAnswer(String ans) {
 rule "Which genre interest you?"
 	when
 	then
-		String[] options = {"Medieval Fantasy", "Far Future",
-   				 "Mecha", "Generes related to near present",
-   				 "Westerns", "Supers", "Other Alternate History",
-   				 "Genre Shouldn't matter"};
+		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter"};
 	 	
 	   	Question nextq = askQuestion("Which genre interest you?", options);
 	   	insert(nextq);
 end
 
-//--- pink-red ---
 rule "Which subgenre?"
 	when
 		$q : Question(question == "Which genre interest you?", answer == "Medieval Fantasy")
@@ -80,10 +76,219 @@ rule "W/Classes? Point Buy?"
 	when
 		$q : Question(question == "Which subgenre?", answer == "High Fantasy/General")
 	then
+		String[] options = {"No class All point buy", "Point Systems", "Just give me the D&D options", "4 Custom Charts Per Class"};
+
+	   	Question nextq = askQuestion("W/Classes? Point Buy?", options);
+	   	insert(nextq);
+end
+
+rule "W/Classes? Point Buy? No class All point buy"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "No class All point buy")
+	then
+		showAnswer("Fantasy HERO");
+end
+
+rule "W/Classes? Point Buy? 4 Custom Charts Per Class"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "4 Custom Charts Per Class")
+	then
+		showAnswer("Rolemaster");
+end
+
+rule "Mythology based?"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "Point Systems")
+	then
+		String[] options = {"No", "Yes"};
+
+	   	Question nextq = askQuestion("Mythology based?", options);
+	   	insert(nextq);
+end
+
+rule "Mythology based? No"
+	when
+		$q : Question(question == "Mythology based?", answer == "No")
+	then
+		showAnswer("Fantasy Hero");
+end
+
+rule "Mythology based? Yes"
+	when
+		$q : Question(question == "Mythology based?", answer == "Yes")
+	then
+		showAnswer("Exalted");
+end
+
+rule "What do you think of Gyax?"
+	when
+		$q : Question(question == "W/Classes? Point Buy?", answer == "Just give me the D&D options")
+	then
+		String[] options = {"He's the Father of RPGs", "He's cool", "Who?"};
+
+	   	Question nextq = askQuestion("What do you think of Gyax?", options);
+	   	insert(nextq);
+end
+
+rule "What do you think of Gyax? Who?"
+	when
+		$q : Question(question == "What do you think of Gyax?", answer == "Who?")
+	then
+		showAnswer("D&D 4E");
+end
+
+rule "Do you like odd mechanics?"
+	when
+		$q : Question(question == "What do you think of Gyax?", answer == "He's cool")
+	then
+		String[] options = {"More subsystems, please", "No"};
+
+	   	Question nextq = askQuestion("Do you like odd mechanics?", options);
+	   	insert(nextq);
+end
+
+rule "Do you like odd mechanics? More subsystems, please"
+	when
+		$q : Question(question == "Do you like odd mechanics?", answer == "More subsystems, please")
+	then
+		showAnswer("D&D 2E");
+end
+
+rule "Want splatbooks galore?"
+	when
+		$q : Question(question == "Do you like odd mechanics?", answer == "No")
+	then
+		String[] options = {"Not really", "Yes", "Make it simple"};
+
+	   	Question nextq = askQuestion("Want splatbooks galore?", options);
+	   	insert(nextq);
+end
+
+rule "Want splatbooks galore? Not really"
+	when
+		$q : Question(question == "Want splatbooks galore?", answer == "Not really")
+	then
+		showAnswer("Castles and Crusades");
+end
+
+rule "How simple?"
+	when
+		$q : Question(question == "Want splatbooks galore?", answer == "Make it simple")
+	then
+		String[] options = {"Very", "Sorta"};
+
+	   	Question nextq = askQuestion("How simple?", options);
+	   	insert(nextq);
+end
+
+rule "How simple? Very"
+	when
+		$q : Question(question == "How simple?", answer == "Very")
+	then
+		showAnswer("True20");
+end
+
+rule "How simple? Sorta"
+	when
+		$q : Question(question == "How simple?", answer == "Sorta")
+	then
+		showAnswer("Fantasy Craft");
+end
+
+rule "Want post 2007 updates?"
+	when
+		$q : Question(question == "Want splatbooks galore?", answer == "Yes")
+	then
+		String[] options = {"No", "Yes"};
+
+	   	Question nextq = askQuestion("Want post 2007 updates?", options);
+	   	insert(nextq);
+end
+
+rule "Want post 2007 updates? No"
+	when
+		$q : Question(question == "Want post 2007 updates?", answer == "No")
+	then
+		showAnswer("D&D 3E/3.5");
+end
+
+rule "Want post 2007 updates? Yes"
+	when
+		$q : Question(question == "Want post 2007 updates?", answer == "Yes")
+	then
+		showAnswer("Pathfinder");
+end
+
+rule "Are you fundamentalist about it?"
+	when
+		$q : Question(question == "What do you think of Gyax?", answer == "He's the Father of RPGs")
+	then
 		String[] options = {"Yes", "No"};
 
-	   	Question nextq = askQuestion("With meta-plots and CCG element?", options);
+	   	Question nextq = askQuestion("Are you fundamentalist about it?", options);
 	   	insert(nextq);
+end
+
+rule "Are you fundamentalist about it? Yes"
+	when
+		$q : Question(question == "Are you fundamentalist about it?", answer == "Yes")
+	then
+		showAnswer("D&D 0E");
+end
+
+rule "Do you like races as clases?"
+	when
+		$q : Question(question == "Are you fundamentalist about it?", answer == "No")
+	then
+		String[] options = {"Yes", "Why the heck can't my dwarf be a cleric?!", "Only two classes are needed", "I'm schizo and want skills"};
+
+	   	Question nextq = askQuestion("Do you like races as clases?", options);
+	   	insert(nextq);
+end
+
+rule "Do you like races as clases? Yes"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "Yes")
+	then
+		showAnswer("BECMI");
+end
+
+rule "Do you like races as clases? Why the heck can't my dwarf be a cleric?!"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "Why the heck can't my dwarf be a cleric?!")
+	then
+		showAnswer("D&D 1E");
+end
+
+rule "Do you like races as clases? I'm schizo and want skills"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "I'm schizo and want skills")
+	then
+		showAnswer("Hackmaster Basaic");
+end
+
+rule "Want skills with that?"
+	when
+		$q : Question(question == "Do you like races as clases?", answer == "Only two classes are needed")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Want skills with that?", options);
+	   	insert(nextq);
+end
+
+rule "Want skills with that? Yes"
+	when
+		$q : Question(question == "Want skills with that?", answer == "Yes")
+	then
+		showAnswer("Tunnels and Trolls 7th edition");
+end
+
+rule "Want skills with that? No"
+	when
+		$q : Question(question == "Want skills with that?", answer == "No")
+	then
+		showAnswer("Tunnels and Trolls early editions");
 end
 
 rule "Semi-historical Setting?"
@@ -205,7 +410,6 @@ rule "Still want a slew of skills? & > 15 abilities"
 		showAnswer("Harnmaster");
 end
 
-//----
 rule "FATE based d20 based or neither?"
 	when
 		$q : Question(question == "Which genre interests you?", answer == "Other Alternate History")
