@@ -34,6 +34,7 @@ rule "Which genre interest you?"
 	   	insert(nextq);
 end
 
+//--- pink-red ---
 rule "Which subgenre?"
 	when
 		$q : Question(question == "Which genre interest you?", answer == "Medieval Fantasy")
@@ -54,6 +55,157 @@ rule "With meta-plots and CCG element?"
 	   	insert(nextq);
 end
 
+rule "With meta-plots and CCG element? Yes"
+	when
+		$q : Question(question == "With meta-plots and CCG element?", answer == "Yes")
+	then
+		showAnswer("Legend of the 5 Rings");
+end
+
+rule "With meta-plots and CCG element? No"
+	when
+		$q : Question(question == "With meta-plots and CCG element?", answer == "No")
+	then
+		showAnswer("Oriental Adventures");
+end
+
+rule "Which subgenre? Hackmaster"
+	when
+		$q : Question(question == "Which subgenre?", answer == "Humor")
+	then
+		showAnswer("Hackmaster");
+end
+
+rule "W/Classes? Point Buy?"
+	when
+		$q : Question(question == "Which subgenre?", answer == "High Fantasy/General")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("With meta-plots and CCG element?", options);
+	   	insert(nextq);
+end
+
+rule "Semi-historical Setting?"
+	when
+		$q : Question(question == "Which subgenre?", answer == "High magic")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Semi-historical Setting?", options);
+	   	insert(nextq);
+end
+
+rule "Semi-historical Setting? Yes"
+	when
+		$q : Question(question == "Semi-historical Setting?", answer == "Yes")
+	then
+		showAnswer("Arc Magica");
+end
+
+rule "Hybridize it moreso with D&D?"
+	when
+		$q : Question(question == "Semi-historical Setting?", answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Hybridize it moreso with D&D?", options);
+	   	insert(nextq);
+end
+
+rule "Hybridize it moreso with D&D? Yes"
+	when
+		$q : Question(question == "Hybridize it moreso with D&D?", answer == "Yes")
+	then
+		showAnswer("EarthDawn");
+end
+
+rule "Hybridize it moreso with D&D? No"
+	when
+		$q : Question(question == "Hybridize it moreso with D&D?", answer == "No")
+	then
+		showAnswer("RuneQuest");
+end
+
+rule "Have wads of cash for minis?"
+	when
+		$q : Question(question == "Which subgenre?", answer == "Low Fantasy")
+	then
+		String[] options = {"Oodles", "Not really"};
+
+	   	Question nextq = askQuestion("Have wads of cash for minis?", options);
+	   	insert(nextq);
+end
+
+rule "Want to finance a store dedicated to 1 game?"
+	when
+		$q : Question(question == "Have wads of cash for minis?", answer == "Oodles")
+	then
+		String[] options = {"Yes", "Not really"};
+
+	   	Question nextq = askQuestion("Want to finance a store dedicated to 1 game?", options);
+	   	insert(nextq);
+end
+
+rule "Want to finance a store dedicated to 1 game? Yes"
+	when
+		$q : Question(question == "Want to finance a store dedicated to 1 game?", answer == "Yes")
+	then
+		showAnswer("Warhammer");
+end
+
+rule "Want to finance a store dedicated to 1 game? Not Really"
+	when
+		$q : Question(question == "Want to finance a store dedicated to 1 game?", answer == "Not really")
+	then
+		String[] options = {"Oodles", "Not really"};
+
+	   	Question nextq = askQuestion("Have wads of cash for minis?", options);
+	   	insert(nextq);
+end
+
+rule "Old or new school?"
+	when
+		$q : Question(question == "Have wads of cash for minis?", answer == "Not really")
+	then
+		String[] options = {"New", "Old"};
+
+	   	Question nextq = askQuestion("Old or new school?", options);
+	   	insert(nextq);
+end
+
+rule "Old or new school? New"
+	when
+		$q : Question(question == "Old or new school?", answer == "New")
+	then
+		showAnswer("Conan (Mongoose)");
+end
+
+rule "Still want a slew of skills?"
+	when
+		$q : Question(question == "Old or new school?", answer == "Old")
+	then
+		String[] options = {"Not really", "& > 15 abilities"};
+
+	   	Question nextq = askQuestion("Still want a slew of skills?", options);
+	   	insert(nextq);
+end
+
+rule "Still want a slew of skills? Not really"
+	when
+		$q : Question(question == "Still want a slew of skills?", answer == "Not really")
+	then
+		showAnswer("Conan (TSR)");
+end
+
+rule "Still want a slew of skills? & > 15 abilities"
+	when
+		$q : Question(question == "Still want a slew of skills?", answer == "& > 15 abilities")
+	then
+		showAnswer("Harnmaster");
+end
+
+//----
 rule "FATE based d20 based or neither?"
 	when
 		$q : Question(question == "Which genre interests you?", answer == "Other Alternate History")
