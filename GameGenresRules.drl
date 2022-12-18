@@ -25,7 +25,7 @@ function void showAnswer(String ans) {
 rule "Which genre interest you?"
 	when
 	then
-		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter"};
+		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter", "Mecha"};
 	 	
 	   	Question nextq = askQuestion("Which genre interest you?", options);
 	   	insert(nextq);
@@ -496,7 +496,7 @@ rule "Which genre interest you? (again)"
 	when
 		$q : Question(question == "Really?", answer == "No, not really")
 	then
-		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter"};
+		String[] options = {"Medieval Fantasy", "Westerns", "Supers", "Other Alternate History", "Genre Shouldn't matter", "Mecha"};
 	 	
 	   	Question nextq = askQuestion("Which genre interest you?", options);
 	   	insert(nextq);
