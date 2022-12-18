@@ -387,5 +387,47 @@ rule "ICONS"
 	 	showAnswer("ICONS");
 end
 
+rule "Focus on Combat?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Westerns")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Focus on Combat?", options);
+	   	insert(nextq);
+end
+
+rule "Boot Hill"
+	when
+		$q : Question(question == "Focus on Combat?", answer == "Yes")
+	then
+	 	showAnswer("Boot Hill");
+end
+
+rule "Mix in some Steampunk?"
+	when
+		$q : Question(question == "Focus on Combat?", answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Mix in some Steampunk?", options);
+	   	insert(nextq);
+end
+
+rule "Deadlands"
+	when
+		$q : Question(question == "Mix in some Steampunk?", answer == "Yes")
+	then
+	 	showAnswer("Deadlands");
+end
+
+rule "Aces and Eights"
+	when
+		$q : Question(question == "Mix in some Steampunk?", answer == "No")
+	then
+	 	showAnswer("Aces and Eights");
+end
+
+
 
 
