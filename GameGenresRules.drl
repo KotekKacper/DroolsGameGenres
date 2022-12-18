@@ -428,6 +428,51 @@ rule "Aces and Eights"
 	 	showAnswer("Aces and Eights");
 end
 
+rule "How tailored do you want your 'universal' system?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Mecha")
+	then
+		String[] options = {"Just an add-on", "Mangled", "I'm houseruling It all anyway"};
 
+	   	Question nextq = askQuestion("How tailored do you want your 'universal' system?", options);
+	   	insert(nextq);
+end
 
+rule "GURPS Mecha"
+	when
+		$q : Question(question == "How tailored do you want your 'universal' system?", answer == "Just an add-on")
+	then
+	 	showAnswer("GURPS Mecha");
+end
+
+rule "Big Eyes, Small Mouth"
+	when
+		$q : Question(question == "How tailored do you want your 'universal' system?", answer == "Mangled")
+	then
+	 	showAnswer("Big Eyes, Small Mouth");
+end
+
+rule "Still want a 'universal' system?"
+	when
+		$q : Question(question == "How tailored do you want your 'universal' system?", answer == "I'm houseruling It all anyway")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Still want a 'universal' system?", options);
+	   	insert(nextq);
+end
+
+rule "Robotech"
+	when
+		$q : Question(question == "Still want a 'universal' system?", answer == "Yes")
+	then
+	 	showAnswer("Robotech");
+end
+
+rule "Mechwarrior"
+	when
+		$q : Question(question == "Still want a 'universal' system?", answer == "No")
+	then
+	 	showAnswer("Mechwarrior");
+end
 
