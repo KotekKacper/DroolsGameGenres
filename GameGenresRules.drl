@@ -273,3 +273,119 @@ rule "Supernatural or pulp? (again)"
 	   	Question nextq = askQuestion("Supernatural or pulp?", options);
 	   	insert(nextq);
 end
+
+rule "Based on real comics?"
+	when
+		$q : Question(question == "Which genre interest you?", answer == "Supers")
+	then
+		String[] options = {"DC", "Marvel", "No or other"};
+
+	   	Question nextq = askQuestion("Based on real comics?", options);
+	   	insert(nextq);
+end
+
+rule "Want a diceless system or one with lots of online fansites?"
+	when
+		$q : Question(question == "Based on real comics?", answer == "Marvel")
+	then
+		String[] options = {"Diceless", "Online Fansites"};
+
+	   	Question nextq = askQuestion("Want a diceless system or one with lots of online fansites?", options);
+	   	insert(nextq);
+end
+
+rule "Marvel Universe"
+	when
+		$q : Question(question == "Want a diceless system or one with lots of online fansites?", answer == "Diceless")
+	then
+	 	showAnswer("Marvel Universe");
+end
+
+rule "Marvel SuperHeroes (FASERIP)"
+	when
+		$q : Question(question == "Want a diceless system or one with lots of online fansites?", answer == "Online Fansites")
+	then
+	 	showAnswer("Marvel SuperHeroes (FASERIP)");
+end
+
+rule "D6s, d10s or d20?"
+	when
+		$q : Question(question == "Based on real comics?", answer == "DC")
+	then
+		String[] options = {"D6", "D10", "D20"};
+
+	   	Question nextq = askQuestion("D6s, d10s or d20?", options);
+	   	insert(nextq);
+end
+
+rule "DC Universe"
+	when
+		$q : Question(question == "D6s, d10s or d20?", answer == "D6")
+	then
+	 	showAnswer("DC Universe");
+end
+
+rule "DC Heroes"
+	when
+		$q : Question(question == "D6s, d10s or d20?", answer == "D10")
+	then
+	 	showAnswer("DC Heroes");
+end
+
+rule "DC Adventures"
+	when
+		$q : Question(question == "D6s, d10s or d20?", answer == "D20")
+	then
+	 	showAnswer("DC Adventures");
+end
+
+rule "Do you like d20 (skills, feats, etc.)?"
+	when
+		$q : Question(question == "Based on real comics?", answer == "No or other")
+	then
+		String[] options = {"Yes", "No"};
+
+	   	Question nextq = askQuestion("Do you like d20 (skills, feats, etc.)?", options);
+	   	insert(nextq);
+end
+
+rule "Mutants and Mansterminds"
+	when
+		$q : Question(question == "Do you like d20 (skills, feats, etc.)?", answer == "Yes")
+	then
+	 	showAnswer("Mutants and Mansterminds");
+end
+
+rule "Do you like to point buy character gen?"
+	when
+		$q : Question(question == "Do you like d20 (skills, feats, etc.)?", answer == "No")
+	then
+		String[] options = {"Yes", "Yes, with fractions!", "Not Really"};
+
+	   	Question nextq = askQuestion("Do you like to point buy character gen?", options);
+	   	insert(nextq);
+end
+
+rule "GURPS Supers"
+	when
+		$q : Question(question == "Do you like to point buy character gen?", answer == "Yes, with fractions!")
+	then
+	 	showAnswer("GURPS Supers");
+end
+
+rule "Champions"
+	when
+		$q : Question(question == "Do you like to point buy character gen?", answer == "Yes")
+	then
+	 	showAnswer("Champions");
+end
+
+rule "ICONS"
+	when
+		$q : Question(question == "Do you like to point buy character gen?", answer == "Not Really")
+	then
+	 	showAnswer("ICONS");
+end
+
+
+
